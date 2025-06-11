@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mobile-Friendly Image Resizer</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        :root {
+
+            --primary: #6C63FF;
+
+            --secondary: #FF6584;
+
+            --dark: #1E1E2C;
+
+            --light: #F8F9FA;
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: 'Poppins', sans-serif;
+
+        }
+
+
+
+        body {
+
+            background-color: var(--light);
+
+            overflow-x: hidden;
+
+        }
+
+
+
+        /* ===== HEADER (Mobile-Friendly) ===== */
+
+        header {
+
+            background: rgba(255, 255, 255, 0.95);
+
+            position: fixed;
+
+            width: 100%;
+
+            z-index: 1000;
+
+            padding: 1rem 5%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+
+
+        .logo {
+
+            font-size: 1.5rem;
+
+            font-weight: 700;
+
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+        }
+
+
+
+        .menu-toggle {
+
+            display: none;
+
+            font-size: 1.5rem;
+
+            color: var(--dark);
+
+            cursor: pointer;
+
+        }
+
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 1.5rem;
+
+        }
+
+
+
+        .nav-links a {
+
+            color: var(--dark);
+
+            text-decoration: none;
+
+            font-weight: 500;
+
+            font-size: 0.9rem;
+
+        }
+
+
+
+        /* ===== HERO SECTION ===== */
+
+        .hero {
+
+            min-height: 100vh;
+
+            padding: 100px 5% 50px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+
+        .hero-content {
+
+            text-align: center;
+
+            width: 100%;
+
+            max-width: 800px;
+
+        }
+
+
+
+        .hero h1 {
+
+            font-size: 2.2rem;
+
+            margin-bottom: 1rem;
+
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+
+            line-height: 1.3;
+
+        }
+
+
+
+        /* ===== TOOL CARD ===== */
+
+        .tool-card {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 1.5rem;
+
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+            margin: 1.5rem auto;
+
+            width: 100%;
+
+        }
+
+
+
+        /* ===== UPLOAD AREA ===== */
+
+        .upload-area {
+
+            border: 2px dashed var(--primary);
+
+            border-radius: 12px;
+
+            padding: 2rem 1rem;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .upload-area i {
+
+            font-size: 2.5rem;
+
+            color: var(--primary);
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .upload-area h3 {
+
+            font-size: 1.2rem;
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .upload-area p {
+
+            font-size: 0.8rem;
+
+            color: #666;
+
+        }
+
+
+
+        /* ===== CONTROLS ===== */
+
+        .controls {
+
+            margin-top: 1.5rem;
+
+            display: none;
+
+        }
+
+
+
+        .control-group {
+
+            display: grid;
+
+            gap: 1rem;
+
+        }
+
+
+
+        .input-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 0.5rem;
+
+        }
+
+
+
+        .input-group label {
+
+            font-weight: 600;
+
+            font-size: 0.9rem;
+
+        }
+
+
+
+        .input-group input[type="number"] {
+
+            padding: 0.6rem;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            width: 100%;
+
+        }
+
+
+
+        .ratio-toggle {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 0.8rem;
+
+            margin-bottom: 0.5rem;
+
+        }
+
+
+
+        .toggle-switch {
+
+            position: relative;
+
+            display: inline-block;
+
+            width: 45px;
+
+            height: 22px;
+
+        }
+
+
+
+        .toggle-switch input {
+
+            opacity: 0;
+
+            width: 0;
+
+            height: 0;
+
+        }
+
+
+
+        .slider {
+
+            position: absolute;
+
+            cursor: pointer;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            bottom: 0;
+
+            background-color: #ccc;
+
+            transition: .4s;
+
+            border-radius: 22px;
+
+        }
+
+
+
+        .slider:before {
+
+            position: absolute;
+
+            content: "";
+
+            height: 16px;
+
+            width: 16px;
+
+            left: 3px;
+
+            bottom: 3px;
+
+            background-color: white;
+
+            transition: .4s;
+
+            border-radius: 50%;
+
+        }
+
+
+
+        input:checked + .slider {
+
+            background-color: var(--primary);
+
+        }
+
+
+
+        input:checked + .slider:before {
+
+            transform: translateX(23px);
+
+        }
+
+
+
+        .btn {
+
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+            color: white;
+
+            border: none;
+
+            padding: 0.8rem;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            width: 100%;
+
+            margin-top: 1rem;
+
+            font-size: 0.9rem;
+
+        }
+
+
+
+        /* ===== IMAGE PREVIEW ===== */
+
+        .image-preview {
+
+            margin: 1.5rem 0;
+
+            display: none;
+
+            text-align: center;
+
+        }
+
+
+
+        .preview-image {
+
+            max-width: 100%;
+
+            max-height: 300px;
+
+            border-radius: 8px;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+        }
+
+
+
+        /* ===== FOOTER ===== */
+
+        footer {
+
+            background: var(--dark);
+
+            color: white;
+
+            padding: 2rem 5%;
+
+            text-align: center;
+
+            font-size: 0.8rem;
+
+        }
+
+
+
+        /* ===== MEDIA QUERIES ===== */
+
+        @media (max-width: 768px) {
+
+            .menu-toggle {
+
+                display: block;
+
+            }
+
+
+
+            .nav-links {
+
+                position: fixed;
+
+                top: 70px;
+
+                left: -100%;
+
+                width: 100%;
+
+                height: calc(100vh - 70px);
+
+                background: white;
+
+                flex-direction: column;
+
+                align-items: center;
+
+                padding: 2rem;
+
+                transition: 0.3s;
+
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+
+            }
+
+
+
+            .nav-links.active {
+
+                left: 0;
+
+            }
+
+
+
+            .hero {
+
+                padding: 90px 5% 40px;
+
+            }
+
+
+
+            .hero h1 {
+
+                font-size: 1.8rem;
+
+            }
+
+
+
+            .tool-card {
+
+                padding: 1.2rem;
+
+            }
+
+
+
+            .upload-area {
+
+                padding: 1.5rem 1rem;
+
+            }
+
+        }
+
+
+
+        @media (max-width: 480px) {
+
+            .hero h1 {
+
+                font-size: 1.5rem;
+
+            }
+
+
+
+            .upload-area i {
+
+                font-size: 2rem;
+
+            }
+
+
+
+            .upload-area h3 {
+
+                font-size: 1rem;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Header with Mobile Menu -->
+
+    <header>
+
+        <div class="logo">ResizePro</div>
+
+        <div class="menu-toggle" id="menuToggle">
+
+            <i class="fas fa-bars"></i>
+
+        </div>
+
+        <nav class="nav-links" id="navLinks">
+
+            <a href="adsterra">Features</a>
+
+            <a href="adsterra">Tools</a>
+
+            <a href="adsterra">Contact</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Hero Section -->
+
+
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+<center> <script type="text/javascript">
+	atOptions = {
+		'key' : '673fd69b8f6551f5735d200c799c6f8b',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/673fd69b8f6551f5735d200c799c6f8b/invoke.js"></script> </center>
+
+            <h1>Resize Images Perfectly on Any Device</h1>
+
+            
+
+            <!-- Tool Card -->
+
+            <div class="tool-card">
+
+                <div class="upload-area" id="dropZone">
+
+                    <i class="fas fa-cloud-upload-alt"></i>
+
+                    <h3>Upload Your Image</h3>
+
+                    <p>Supports JPG, PNG, WEBP (Max 10MB)</p>
+
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+
+                </div>
+
+                
+
+                <!-- Image Preview -->
+
+                <div class="image-preview" id="previewContainer">
+
+                    <img id="preview" class="preview-image" alt="Preview">
+
+                </div>
+
+
+
+                <!-- Controls -->
+
+                <div class="controls" id="controls">
+
+                    <div class="control-group">
+
+                        <div class="ratio-toggle">
+
+                            <span>Lock Aspect Ratio:</span>
+
+                            <label class="toggle-switch">
+
+                                <input type="checkbox" id="ratioLock" checked>
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                        
+
+                        <div class="input-group">
+
+                            <label>Width (px)</label>
+
+                            <input type="number" id="width" min="100" value="800">
+
+                        </div>
+
+                        
+
+                        <div class="input-group">
+
+                            <label>Height (px)</label>
+
+                            <input type="number" id="height" min="100" value="600">
+
+                        </div>
+
+                        
+
+                        <div class="input-group">
+
+                            <label>Quality: <span id="qualityValue">90%</span></label>
+
+                            <input type="range" id="quality" min="1" max="100" value="90">
+
+                        </div>
+
+                        
+
+                        <div class="input-group">
+
+                            <label>Format</label>
+
+                            <select id="format">
+
+                                <option value="png">PNG</option>
+
+                                <option value="jpeg">JPEG</option>
+
+                                <option value="webp">WebP</option>
+
+                            </select>
+
+                        </div>
+
+                        
+
+                        <button id="resizeBtn" class="btn">Resize Image</button>
+
+                        <a id="downloadBtn" class="btn" download style="display: none;">
+
+                            <i class="fas fa-download"></i> Download
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+<center> <script type="text/javascript">
+	atOptions = {
+		'key' : '673fd69b8f6551f5735d200c799c6f8b',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/673fd69b8f6551f5735d200c799c6f8b/invoke.js"></script> </center>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>&copy; 2023 ResizePro. Works perfectly on all devices.</p>
+
+    </footer>
+
+
+
+    <script>
+
+        // Mobile Menu Toggle
+
+        const menuToggle = document.getElementById('menuToggle');
+
+        const navLinks = document.getElementById('navLinks');
+
+
+
+        menuToggle.addEventListener('click', () => {
+
+            navLinks.classList.toggle('active');
+
+        });
+
+
+
+        // Image Resizer Functionality
+
+        const dropZone = document.getElementById('dropZone');
+
+        const fileInput = document.getElementById('fileInput');
+
+
+        const preview = document.getElementById('preview');
+
+
+        const previewContainer = document.getElementById('previewContainer');
+
+        const controls = document.getElementById('controls');
+
+        const widthInput = document.getElementById('width');
+
+        const heightInput = document.getElementById('height');
+
+        const qualityInput = document.getElementById('quality');
+
+        const qualityValue = document.getElementById('qualityValue');
+
+        const formatSelect = document.getElementById('format');
+
+        const resizeBtn = document.getElementById('resizeBtn');
+
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        const ratioLock = document.getElementById('ratioLock');
+
+
+
+        // Aspect Ratio Variables
+
+        let originalRatio = 1;
+
+        let isRatioLocked = true;
+
+
+
+        // File Upload Handling (Mobile-Friendly)
+
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        
+
+        // Handle drag/drop for desktop
+
+        dropZone.addEventListener('dragover', (e) => {
+
+            e.preventDefault();
+
+            dropZone.style.borderColor = '#6C63FF';
+
+            dropZone.style.background = 'rgba(108, 99, 255, 0.05)';
+
+        });
+
+
+
+        dropZone.addEventListener('dragleave', () => {
+
+            dropZone.style.borderColor = '#6C63FF';
+
+            dropZone.style.background = 'transparent';
+
+        });
+
+
+
+        dropZone.addEventListener('drop', (e) => {
+
+            e.preventDefault();
+
+            const file = e.dataTransfer.files[0];
+
+            handleImage(file);
+
+        });
+
+
+
+        // Handle file selection for mobile
+
+        fileInput.addEventListener('change', (e) => {
+
+            const file = e.target.files[0];
+
+            handleImage(file);
+
+        });
+
+
+
+        function handleImage(file) {
+
+            if (file && file.type.startsWith('image/')) {
+
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+
+                    preview.src = e.target.result;
+
+                    previewContainer.style.display = 'block';
+
+                    controls.style.display = 'block';
+
+                    
+
+                    // Set original dimensions and ratio
+
+                    const img = new Image();
+
+                    img.onload = function() {
+
+                        widthInput.value = this.width;
+
+                        heightInput.value = this.height;
+
+                        originalRatio = this.width / this.height;
+
+                    };
+
+                    img.src = e.target.result;
+
+                };
+
+                reader.readAsDataURL(file);
+
+            }
+
+        }
+
+
+
+        // Quality Value Display
+
+        qualityInput.addEventListener('input', () => {
+
+            qualityValue.textContent = `${qualityInput.value}%`;
+
+        });
+
+
+
+        // Ratio Lock Toggle
+
+        ratioLock.addEventListener('change', () => {
+
+            isRatioLocked = ratioLock.checked;
+
+        });
+
+
+
+        // Width/Height Input Handling
+
+        widthInput.addEventListener('input', () => {
+
+            if (isRatioLocked && preview.complete) {
+
+                heightInput.value = Math.round(widthInput.value / originalRatio);
+
+            }
+
+        });
+
+
+
+        heightInput.addEventListener('input', () => {
+
+            if (isRatioLocked && preview.complete) {
+
+                widthInput.value = Math.round(heightInput.value * originalRatio);
+
+            }
+
+        });
+
+
+
+        // Resize Functionality
+
+        resizeBtn.addEventListener('click', () => {
+
+            if (!preview.src) {
+
+                alert('Please upload an image first');
+
+                return;
+
+            }
+
+
+
+            const img = new Image();
+
+            img.src = preview.src;
+
+            
+
+            img.onload = () => {
+
+                const canvas = document.createElement('canvas');
+
+                const ctx = canvas.getContext('2d');
+
+                
+
+                // Set canvas dimensions
+
+                canvas.width = parseInt(widthInput.value) || img.width;
+
+                canvas.height = parseInt(heightInput.value) || img.height;
+
+                
+
+                // Draw resized image
+
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                
+
+                // Get format and quality
+
+                const format = formatSelect.value;
+
+                const quality = parseInt(qualityInput.value) / 100;
+
+                
+
+                // Create download link
+
+                canvas.toBlob((blob) => {
+
+                    const url = URL.createObjectURL(blob);
+
+                    downloadBtn.href = url;
+
+                    downloadBtn.style.display = 'block';
+
+                    
+
+                    // Set filename
+
+                    const filename = `resized-image.${format}`;
+
+                    downloadBtn.setAttribute('download', filename);
+
+                }, `image/${format}`, quality);
+
+            };
+
+        });
+
+    </script>
+
+<center><script async="async" data-cfasync="false" src="//pl26795952.profitableratecpm.com/2e9d1d0c56f722ba488c87cc2990ad93/invoke.js"></script>
+<div id="container-2e9d1d0c56f722ba488c87cc2990ad93"></div> </center>
+
+
+
+</body>
+
+
+</html>
